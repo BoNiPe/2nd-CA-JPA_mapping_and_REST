@@ -28,7 +28,6 @@ public class Person implements Serializable {
     }
 
     public Person(String firstName, String lastName, String phone, String email) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -36,16 +35,15 @@ public class Person implements Serializable {
     }
     
     @OneToMany
-    List<RoleSchool> justTryin = new ArrayList();
+    List<RoleSchool> listOfSchoolRoles = new ArrayList();
     
     public void addRole(RoleSchool sr){
-        //sr.setId(id);
-        justTryin.add(sr);
+        listOfSchoolRoles.add(sr);
         System.out.println(sr.getId() + " "+ sr.getRoleName());
     }
     
-    public int checkRoles(){
-        return justTryin.size();
+    public List checkRoles(){
+        return listOfSchoolRoles;
     }
     
     public Integer getId() {
