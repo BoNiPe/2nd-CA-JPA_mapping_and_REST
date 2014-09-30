@@ -46,7 +46,7 @@ public class Person implements Serializable {
    //@MapKeyColumn(name = "Email")
     private List<String> email = new ArrayList();
     
-    @ElementCollection// (fetch = FetchType.LAZY) // NOT SURE IF NEEDEDFOR RoleSchool
+//    @ElementCollection// (fetch = FetchType.LAZY) // NOT SURE IF NEEDEDFOR RoleSchool
    // @MapKeyColumn(name = "RoleSchool") 
     @OneToMany//(mappedBy="person")
     private List<RoleSchool> roles = new ArrayList();
