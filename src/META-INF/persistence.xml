@@ -5,6 +5,8 @@
     <class>entity.Person</class>
     <class>entity.SchoolRole</class>
     <class>entity.Teacher</class>
+    <class>entity.Student</class>
+    <class>entity.TeacherAssistant</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/betaprojectb"/>
       <property name="javax.persistence.jdbc.password" value="betaprojectb"/>

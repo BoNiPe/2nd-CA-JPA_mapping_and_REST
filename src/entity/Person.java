@@ -36,7 +36,7 @@ public class Person implements Serializable {
     }
     
     @OneToMany
-    List<SchoolRole> justTryin;
+    List<SchoolRole> justTryin = new ArrayList();
     
     public void addRole(SchoolRole sr){
         sr.setId(id);
@@ -44,8 +44,8 @@ public class Person implements Serializable {
         System.out.println(sr.getId() + " "+ sr.getRoleName());
     }
     
-    public List checkRoles(){
-        return justTryin;
+    public int checkRoles(){
+        return justTryin.size();
     }
     
     public Integer getId() {
