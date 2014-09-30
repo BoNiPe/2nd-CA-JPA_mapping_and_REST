@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 @Entity
-public class Teacher extends SchoolRole implements Serializable {
+public class Teacher extends RoleSchool implements Serializable {
     private String degree;
 
     public Teacher() {

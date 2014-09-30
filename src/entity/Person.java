@@ -22,7 +22,7 @@ public class Person implements Serializable {
     private String firstName;
     private String lastName;
     private String phone;
-    private String email;
+    private String mail;
 
     public Person() {
     }
@@ -32,14 +32,14 @@ public class Person implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-        this.email = email;
+        this.mail = email;
     }
     
     @OneToMany
-    List<SchoolRole> justTryin = new ArrayList();
+    List<RoleSchool> justTryin = new ArrayList();
     
-    public void addRole(SchoolRole sr){
-        sr.setId(id);
+    public void addRole(RoleSchool sr){
+        //sr.setId(id);
         justTryin.add(sr);
         System.out.println(sr.getId() + " "+ sr.getRoleName());
     }
@@ -53,7 +53,7 @@ public class Person implements Serializable {
     }
 
     public String getEmail() {
-        return email;
+        return mail;
     }
 
     public String getFirstName() {
@@ -69,7 +69,7 @@ public class Person implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mail = email;
     }
 
     public void setFirstName(String firstName) {

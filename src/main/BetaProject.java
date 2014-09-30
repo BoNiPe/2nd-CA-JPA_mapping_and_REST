@@ -1,7 +1,7 @@
 package main;
 
 import entity.Person;
-import entity.SchoolRole;
+import entity.RoleSchool;
 import entity.Student;
 import entity.Teacher;
 import entity.TeacherAssistant;
@@ -35,7 +35,7 @@ public class BetaProject {
         TeacherAssistant tal1 = new TeacherAssistant("+9000");
         p1.addRole(t1);
         p2.addRole(s1);
-        p3.addRole(tal1);
+        p1.addRole(tal1);
         tr.begin();
         em.persist(t1);
         em.persist(s1);
