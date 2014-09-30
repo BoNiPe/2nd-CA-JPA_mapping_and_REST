@@ -5,6 +5,7 @@
  */
 
 import entity.Person;
+import entity.Teacher;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -50,6 +51,7 @@ public class TestPerson {
         per.setPhone("1");
         per.setEmail("c");
         
+        
         assertEquals("Name: a b with email: c and phone number: 1", per.toString());
     }
     
@@ -63,7 +65,16 @@ public class TestPerson {
         
         System.out.println(list.toString());
         
+        assertEquals(2, list.size());
         assertEquals("[Name: Lars IsCool with email: BIF@Forever.dk and phone number: 12345, Name: Nikolaj Desting with email: haha@lol.dk and phone number: 555]", list.toString());
+    }
+    
+    @Test
+    public void addRole(){
+        Teacher teacher = new Teacher("Computer Science");
+        per.addRole(teacher);
+        
+        assertEquals(1, per.checkRoles());
     }
     
 }
