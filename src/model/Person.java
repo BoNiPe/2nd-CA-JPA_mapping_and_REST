@@ -5,10 +5,40 @@
  */
 package model;
 
+import entity.RoleSchool;
+import facade.IPersonFacade;
+
 /**
  *
  * @author Tomascik
  */
-public class Person {
+public class Person implements IPersonFacade{
+
+    @Override
+    public String getPersonsAsJSON() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPersonAsJson(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person addPersonFromGson(String json) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RoleSchool addRoleFromGson(String json, long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person delete(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }
