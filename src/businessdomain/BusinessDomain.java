@@ -22,13 +22,13 @@ public class BusinessDomain {
    public void runDatabase() {
 
    EntityManagerFactory emf;
-   emf = Persistence.createEntityManagerFactory("BusinessDomainPU");
+   emf = Persistence.createEntityManagerFactory("BetaProjectbPU");
    EntityManager em = emf.createEntityManager();
    EntityTransaction et = em.getTransaction();
    
-   Person p1 = new Person("Peter", "Tomascik");
-   Person p2 = new Person("Boyko","Mitic");
-   Person p3 = new Person("Nikolaj","Numsehol");
+   Person p1 = new Person("Peter", "Tomascik","9409410","sasd@");
+   Person p2 = new Person("Boyko","Mitic","6510651","kjbnji@");
+   Person p3 = new Person("Nikolaj","Numsehol","65160651","kjbijno@");
    
    
    
@@ -42,17 +42,13 @@ public class BusinessDomain {
    //AssistenTeacher ast2 = new  AssistenTeacher();
    
    
-   p1.addEmail("tomascik@peter");
-   p1.addPhoneNumber("0909090");
+  
    p1.addRole(t1);
    
-   p2.addEmail("boyko@boyko");
-   p2.addEmail("mitic@mitic");
-   p2.addPhoneNumber("04651230");
+ 
    p1.addRole(st1);
    
-   p3.addEmail("nick@nick");
-   p3.addPhoneNumber("654151");
+   
    p1.addRole(ast1);
    
    et.begin();

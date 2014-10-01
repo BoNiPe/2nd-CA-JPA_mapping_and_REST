@@ -37,47 +37,29 @@ public class Person implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-    
-    //private List<String> newRoleList = new ArrayList(); // <- NOT SURE IF CORRECT WAY
-  
-    @ElementCollection//(fetch = FetchType.LAZY) // not sure about fetching - if it is not loading from another then no needed, right ? 
-    //@MapKeyColumn(name = "Phone")
-    private List<String> phone = new ArrayList();
+    private String phone;
+    private String mail;
 
-    @ElementCollection //(fetch = FetchType.LAZY)
-   //@MapKeyColumn(name = "Email")
-    private List<String> email = new ArrayList();
-    
-//    @ElementCollection// (fetch = FetchType.LAZY) // NOT SURE IF NEEDEDFOR RoleSchool
-   // @MapKeyColumn(name = "RoleSchool") 
-    @OneToMany (cascade = CascadeType.ALL)//(mappedBy="person")
+    @OneToMany(cascade = CascadeType.ALL)//(mappedBy="person")
     @JoinColumn
     private List<RoleSchool> roles = new ArrayList();
-    
-    
-    
-      public void addRole(RoleSchool newRole)
-    {
+
+    public void addRole(RoleSchool newRole) {
         roles.add(newRole);
     }
-  
-    public void addPhoneNumber(String phoneNumber) {
-        phone.add(phoneNumber);
+
+    public List checkRoles() {
+        return roles;
     }
 
-    
-    public void addEmail(String mail) {
-        email.add(mail);
-    }
-   
-    
     // Getters and Setters + Constructors
-
-    public Person(String firstName, String lastName) {
+    public Person(String firstName, String lastName, String phone, String mail) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
+        this.mail = mail;
     }
-  
+
     public Person() {
     }
 
@@ -97,23 +79,22 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<String> getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(List<String> phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public List<String> getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(List<String> email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -122,4 +103,5 @@ public class Person implements Serializable {
         this.id = id;
     }
 
+    // ADD TO STRING
 }
