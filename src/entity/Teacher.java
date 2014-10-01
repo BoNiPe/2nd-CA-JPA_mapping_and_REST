@@ -15,15 +15,11 @@ public class Teacher extends RoleSchool implements Serializable {
         super.setRoleName("Teacher");
     }
 
-
     public String getDegree() {
         return degree;
     }
 
     public void setDegree(String degree) {
         this.degree = degree;
-    }
-    
-    
-    
+    }  
 }

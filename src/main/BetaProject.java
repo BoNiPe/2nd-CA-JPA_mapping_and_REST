@@ -1,7 +1,6 @@
 package main;
 
 import entity.Person;
-import entity.RoleSchool;
 import entity.Student;
 import entity.Teacher;
 import entity.TeacherAssistant;
@@ -32,7 +31,7 @@ public class BetaProject {
         System.out.println("****************************************");
         Teacher t1 = new Teacher("Doctor");
         Student s1 = new Student("3rd Semester");
-        TeacherAssistant tal1 = new TeacherAssistant("+9000");
+        TeacherAssistant tal1 = new TeacherAssistant();
         p1.addRole(t1);
         p2.addRole(s1);
         p1.addRole(tal1);

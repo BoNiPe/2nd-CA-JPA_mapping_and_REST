@@ -16,8 +16,6 @@ public class Student extends RoleSchool implements Serializable {
         super.setRoleName("Student");
     }
 
-
-
     public String getSemester() {
         return semester;
     }
