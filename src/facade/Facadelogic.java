@@ -141,11 +141,11 @@ public class Facadelogic implements FacadeInterface {
         String s1 = "{\"semester\":\"2nd Semester\", \"roleName\":\"Student\" }";
         String ta1 = "{ \"roleName\":\"TeacherAssistant\" } ";
         addRoleFromJSON(t1, 100);
-        addRoleFromJSON(s1, 102);
+        //addRoleFromJSON(s1, 102);
         addRoleFromJSON(ta1, 101);
         try {
             System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
-            deletePersonFromJSON(102);
+            //deletePersonFromJSON(102);
         } catch (NotFoundException ex) {
             System.out.println("swag." + ex);
         }
