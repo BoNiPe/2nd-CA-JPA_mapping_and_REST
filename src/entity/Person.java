@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -48,7 +50,8 @@ public class Person implements Serializable {
     
 //    @ElementCollection// (fetch = FetchType.LAZY) // NOT SURE IF NEEDEDFOR RoleSchool
    // @MapKeyColumn(name = "RoleSchool") 
-    @OneToMany//(mappedBy="person")
+    @OneToMany (cascade = CascadeType.ALL)//(mappedBy="person")
+    @JoinColumn
     private List<RoleSchool> roles = new ArrayList();
     
     
