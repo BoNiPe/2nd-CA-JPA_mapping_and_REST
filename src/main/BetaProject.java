@@ -10,16 +10,16 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class BetaProject {
+//Testing class to test the local database without Facade and HTTP Server
 
-    public static void main(String[] args) {
-        new BetaProject().startLogic();
-    }
-
+//    public static void main(String[] args) {
+//        new BetaProject().startLogic();
+//    }
     private void startLogic() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BetaProjectbPU");
         EntityManager em = emf.createEntityManager();
         Person p1 = new Person("Boyko", "Surlev", "52639266", "boyko.surlev@gmail.com");
-        Person p2 = new Person("Nikolaj", "Desting", "30579301", "yourmomishot.bullshit@iRock.me");
+        Person p2 = new Person("Nikolaj", "Desting", "30579301", "nikolaj.desting@gmail.com");
         Person p3 = new Person("Peter", "Tomashchik", "00000", "yoloswag");
         EntityTransaction tr = em.getTransaction();
         System.out.println("****************************************");
@@ -44,7 +44,5 @@ public class BetaProject {
         Person test = em.find(Person.class, p1.getId());
         System.out.println("FIND MY TABLES >>>>>> " + test.toString());
         System.out.println("My size>>>>>>>.." + test.checkRoles());
-
     }
-
 }

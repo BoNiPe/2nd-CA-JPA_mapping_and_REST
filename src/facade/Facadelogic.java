@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+//Facade class (logic) representing the Person table. Created by Boyko. (not everything)
 
 public class Facadelogic implements FacadeInterface {
 
@@ -29,6 +30,7 @@ public class Facadelogic implements FacadeInterface {
     //Vital for the parsing to Gson
     private Gson gson = new Gson();
 
+    //Singleton
     private static Facadelogic instance = null;
 
     protected Facadelogic() {
@@ -44,6 +46,7 @@ public class Facadelogic implements FacadeInterface {
 
     @Override
     public String getPersonsAsJSON() {
+        //Makes a query to DB to get all People.
         Query query = em.createQuery("SELECT a FROM Person a");
         List<Person> nesquick = (List<Person>) query.getResultList();
         return gson.toJson(nesquick);
@@ -71,6 +74,16 @@ public class Facadelogic implements FacadeInterface {
         return p;
     }
 
+    /**
+     * This functions has several small functionalities in it. First, by the
+     * given ID from the parameters , it will find the person who's id == the
+     * given id, then It will create that object. Then I will parse the jSon
+     * string, given from the parameters to an element, which will be generated
+     * to Object. From the object we become able to get a particular field, if
+     * we know the name of it, then using the value of that field we are
+     * creating switch statement, which will add roles depending of the Person's
+     * role - Teacher,Student, etc. Persist & commit :)
+     */
     @Override
     public RoleSchool addRoleFromJSON(String json, Integer id) {
         Person a = em.find(Person.class, id);
@@ -126,35 +139,47 @@ public class Facadelogic implements FacadeInterface {
         tr = em.getTransaction();
     }
 
-    public void testingCode() {
-        String addingperson = "{ \"firstName\":\"John\", \"lastName\":\"McLaren\", \"mail\":\"j@m.uk\", \"phone\":\"3456\" }";
-        String addingperson2 = "{ \"firstName\":\"aaaaaa\", \"lastName\":\"aaaaa\", \"mail\":\"aaaaaa@m.uk\", \"phone\":\"33242346\" }";
-        String addingperson3 = "{ \"firstName\":\"bbbbb\", \"lastName\":\"bbbb\", \"mail\":\"bbbbbb@m.uk\", \"phone\":\"3234324236\" }";
-        Person p = addPersonFromJSON(addingperson);
-        Person p2 = addPersonFromJSON(addingperson2);
-        Person p3 = addPersonFromJSON(addingperson3);
-        System.out.println("Object: " + p.toString());
-        System.out.println("Object: " + p2.toString());
-        System.out.println("Object: " + p3.toString());
-        System.out.println("loraloralorao>O " + getPersonsAsJSON());
-        String t1 = "{\"degree\":\"d-1\", \"roleName\":\"Teacher\" }";
-        String s1 = "{\"semester\":\"2nd Semester\", \"roleName\":\"Student\" }";
-        String ta1 = "{ \"roleName\":\"TeacherAssistant\" } ";
-        addRoleFromJSON(t1, 100);
-        //addRoleFromJSON(s1, 102);
-        addRoleFromJSON(ta1, 101);
-        try {
-            System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
-            //deletePersonFromJSON(102);
-        } catch (NotFoundException ex) {
-            System.out.println("swag." + ex);
-        }
-
-    }
-
+//Testing method to test the facade without HTTP Server
 //    public static void main(String[] args) {
 //
 //        new Facadelogic().testingCode();
 //    }
+    public void testingCode() {
+        Person person1 = new Person("Boyko", "Surlev", "boyko.surlev@gmail.com", "52639266");
+        Person person2 = new Person("Nikolaj", "Desting", "nikolaj.desting@gmail.com", "30579301");
+        Person person3 = new Person("Peter", "Tomascik", "peter@gmail.com", "69696969");
+        Person person4 = new Person("Krisko", "Beats", "lora.lora.lora@gmail.com", "2014baby");
+        Person person5 = new Person("Kilata", "100 Kila", "kilata.maika@gmail.com", "100");
+        Person person6 = new Person("CphBusiness", "Lyngby", "hi@cphbusiness.dk", "2700");
+        Person person7 = new Person("Swag", "Boy", "swag.boy94@gmail.com", "1337");
+        Person person8 = new Person("Trance", "Around", "the.world@gmail.com", "9999999");
+        Person person9 = new Person("Hallo", "Ven", "friendship@gmail.com", "0123456");
+        Person person10 = new Person("WE", "LOVE", "music@gmail.com", "484848484");
+        
+        addPersonFromJSON(gson.toJson(person1, Person.class));
+        addPersonFromJSON(gson.toJson(person2, Person.class));
+        addPersonFromJSON(gson.toJson(person3, Person.class));
+        addPersonFromJSON(gson.toJson(person4, Person.class));
+        addPersonFromJSON(gson.toJson(person5, Person.class));
+        addPersonFromJSON(gson.toJson(person6, Person.class));
+        addPersonFromJSON(gson.toJson(person7, Person.class));
+        addPersonFromJSON(gson.toJson(person8, Person.class));
+        addPersonFromJSON(gson.toJson(person9, Person.class));
+        addPersonFromJSON(gson.toJson(person10, Person.class));
+
+        Teacher teacher1 = new Teacher("Doctor");
+        Student student1 = new Student("3rd Semester");
+        TeacherAssistant teacherassistant1 = new TeacherAssistant();
+        
+        addRoleFromJSON(gson.toJson(teacher1, Teacher.class), 103);
+        addRoleFromJSON(gson.toJson(student1, Student.class), 100);
+        addRoleFromJSON(gson.toJson(student1, Student.class), 101);
+        addRoleFromJSON(gson.toJson(student1, Student.class), 102);
+        addRoleFromJSON(gson.toJson(teacherassistant1, TeacherAssistant.class), 105);
+        addRoleFromJSON(gson.toJson(teacherassistant1, TeacherAssistant.class), 102);
+
+        System.out.println("List of People: " + getPersonsAsJSON());
+
+    }
 
 }

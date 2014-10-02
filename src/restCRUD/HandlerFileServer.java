@@ -1,4 +1,3 @@
-//Nick's and Peter's logic
 package restCRUD;
 
 import com.sun.net.httpserver.Headers;
@@ -10,10 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- *
- * @author Desting
- */
 public class HandlerFileServer implements HttpHandler {
 
     private String publicFolder = RestFileServer.publicFolder;
