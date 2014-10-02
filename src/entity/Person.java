@@ -69,6 +69,12 @@ public class Person implements Serializable {
         return phone;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    
+
     public void setEmail(String email) {
         this.mail = email;
     }
@@ -87,7 +93,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Name: " + getFirstName() + " " + getLastName() + " with email: "
+        return "ID"+ id+"Name: " + getFirstName() + " " + getLastName() + " with email: "
                 + getEmail() + " and phone number: " + getPhone();
     }
 
