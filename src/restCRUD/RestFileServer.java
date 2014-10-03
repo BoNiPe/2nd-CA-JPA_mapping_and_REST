@@ -8,8 +8,8 @@ import java.net.InetSocketAddress;
 
 public class RestFileServer {
 
-    static int port = 8084;
-    static String ip = "127.0.0.1";
+    static int port = 8080;
+    static String ip = "100.85.90.78";
     static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
