@@ -27,6 +27,7 @@ public class HandlerFileServer implements HttpHandler {
             {
                 String extension = f.substring(f.lastIndexOf("."));
                 mime = getMime(extension);
+                System.out.println("My mime : " + mime);
                 File file = new File(publicFolder + f);
                 System.out.println(publicFolder + f);
                 bytesToSend = new byte[(int) file.length()];
