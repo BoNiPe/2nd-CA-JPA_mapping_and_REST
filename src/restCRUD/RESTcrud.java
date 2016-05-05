@@ -13,7 +13,7 @@ public class RESTcrud {
     }
     
     private void restCRUD(){
-       facade = Facadelogic.getFacade();
+       facade = Facadelogic.getInstance();
         if(DEVELOPMENT_MODE_YOLO_SWAG){
             facade.testingCode();
         } 

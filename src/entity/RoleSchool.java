@@ -1,70 +1,46 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.SequenceGenerator;
 
-/**
- *
- * @author Tomascik
- */
 @Entity
-//@DiscriminatorColumn(name = "RoleSchool", discriminatorType = DiscriminatorType.CHAR)
 @Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorValue("RoleSchool")
 public class RoleSchool implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "schrolIDSeq")
+    @SequenceGenerator(name = "schrolIDSeq", sequenceName = "SCHROL_SEQ",
+            initialValue = 200, allocationSize = 1)
+    private Integer id;
     private String roleName;
-    
-    // Getters and Setters + Constructors
+
+    public RoleSchool(String role) {
+        this.roleName = role;
+    }
 
     public RoleSchool() {
     }
 
-  
-
-    public RoleSchool(String roleName) {
-        this.roleName = roleName;
+    public Integer getId() {
+        return id;
     }
 
-  
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getRoleName() {
         return roleName;
     }
-    
-    
-    public Long getId() {
-        return id;
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-   
-
-    
 }

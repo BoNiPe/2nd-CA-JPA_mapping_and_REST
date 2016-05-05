@@ -3,17 +3,16 @@
   <persistence-unit name="BetaProjectbPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entity.Person</class>
-    <class>entity.RoleSchool</class>
     <class>entity.Teacher</class>
-    <class>entity.AssistentTeacher</class>
     <class>entity.Student</class>
-    <class>entity.AssistenTeacher</class>
+    <class>entity.TeacherAssistant</class>
+    <class>entity.RoleSchool</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/testingdb"/>
-      <property name="javax.persistence.jdbc.user" value="testingdb"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/betaprojectb"/>
+      <property name="javax.persistence.jdbc.password" value="betaprojectb"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="testingdb"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.user" value="betaprojectb"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

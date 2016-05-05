@@ -3,6 +3,7 @@ package restCRUD;
 
 import com.sun.net.httpserver.HttpServer;
 import exceptions.NotFoundException;
+import facade.Facadelogic;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -15,16 +16,25 @@ public class RestFileServer {
     static String filesUri = "/pages";
     static final boolean DEVELOPMENT_MODE = true;
 
+    static Facadelogic facade;
+
     public void run() throws IOException, NotFoundException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
-        //REST Routes
-        server.createContext("/person", new HandlerPerson());
+        facade = Facadelogic.getInstance();
+        if (RestFileServer.DEVELOPMENT_MODE) {
+            facade.testingCode();
 
-        //HTTP Server Routes
-        server.createContext(filesUri, new HandlerFileServer());
+            HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
+            //REST Routes
+            server.createContext("/person", new HandlerPerson());
+            server.createContext("/role", new HandlerRole());
 
-        server.start();
-        System.out.println("Server started, listening on port: " + port);
+            //HTTP Server Routes
+            server.createContext(filesUri, new HandlerFileServer());
+
+            server.start();
+            System.out.println("Server started, listening on port: " + port);
+        }
+
     }
 
     public static void main(String[] args) throws IOException, NotFoundException {

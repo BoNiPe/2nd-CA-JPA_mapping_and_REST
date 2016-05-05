@@ -6,14 +6,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import entity.Person;
 import entity.RoleSchool;
+import entity.Student;
 import entity.Teacher;
+import entity.TeacherAssistant;
 import exceptions.NotFoundException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -31,62 +28,19 @@ public class Facadelogic implements FacadeInterface {
     EntityTransaction tr;
     //Vital for the parsing to Gson
     private Gson gson = new Gson();
-    public static Facadelogic instance = new Facadelogic();
-    
-    public Facadelogic() {
-  }
-  
-  
-  
-  
-  /*
-    Pass in true to create a new instance. Usefull for testing.
-  */
-  public static Facadelogic getFacade(){
-    if(true){
-      instance = new Facadelogic();
+
+    private static Facadelogic instance = null;
+
+    protected Facadelogic() {
+        // Exists only to defeat instantiation..or with other words - YOLO SWAG
     }
-    return instance;
-  }
 
-
-// FOR testing
-  
-     public void testingCode()  {
-        String addingperson = "{ \"firstName\":\"John\", \"lastName\":\"McLaren\", \"mail\":\"j@m.uk\", \"phone\":\"3456\" }";
-        String addingperson2 = "{ \"firstName\":\"aaaaaa\", \"lastName\":\"aaaaa\", \"mail\":\"aaaaaa@m.uk\", \"phone\":\"33242346\" }";
-        String addingperson3 = "{ \"firstName\":\"bbbbb\", \"lastName\":\"bbbb\", \"mail\":\"bbbbbb@m.uk\", \"phone\":\"3234324236\" }";
-        Person p = addPersonFromJSON(addingperson);
-        Person p2 = addPersonFromJSON(addingperson2);
-        Person p3 = addPersonFromJSON(addingperson3);
-        System.out.println("Object: " + p.toString());
-        System.out.println("Object: " + p2.toString());
-        System.out.println("Object: " + p3.toString());
-        System.out.println("loraloralorao>O " + getPersonsAsJSON());
-        try {
-            System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
-        } catch ( NotFoundException ex ) {
-            Logger.getLogger( Facadelogic.class.getName() ).log( Level.SEVERE, null, ex );
+    public static Facadelogic getInstance() {
+        if (instance == null) {
+            instance = new Facadelogic();
         }
-        String t1 = "{\"degree\":\"d-1\", \"roleName\":\"Teacher\" }";
-        addRoleFromJSON(t1, 100);
-        try {
-            deletePersonFromJSON(102);
-            
-            
-            //LAR CODE
-//        addPerson(gson.toJson(new Person("Lars","Mortensen","1234")));
-//    addPerson(gson.toJson(new Person("John","Handsen","2345")));
-//    addPerson(gson.toJson(new Person("Peter","Olsen","3456")));
-//    addPerson(gson.toJson(new Person("John","McDonald","4567")));
-//    addPerson(gson.toJson(new Person("George","Peterson","5678")));
-        } catch ( NotFoundException ex ) {
-            Logger.getLogger( Facadelogic.class.getName() ).log( Level.SEVERE, null, ex );
-        }
-
+        return instance;
     }
-     
-     
 
     @Override
     public String getPersonsAsJSON() {
@@ -97,8 +51,12 @@ public class Facadelogic implements FacadeInterface {
 
     @Override
     public String getPersonAsJSON(Integer id) throws NotFoundException {
-        
         Person a = em.find(Person.class, id);
+        //Nick's Exception logic.
+        if (a == null) {
+            throw new NotFoundException("No person exists for this given ID");
+        }
+        //^^
         return ((a == null) ? null : gson.toJson(a));
     }
 
@@ -120,23 +78,34 @@ public class Facadelogic implements FacadeInterface {
         JsonObject jobject = jelement.getAsJsonObject();
         JsonElement currentrole = jobject.get("roleName");
         String roleToString = currentrole.getAsString();
-        System.out.println("yoloswag " + roleToString);
+        //System.out.println("Actual role: " + roleToString);
         tr.begin();
-        Teacher t;
+        RoleSchool rs;
         switch (roleToString) {
             case "Teacher":
                 JsonElement currentdegree = jobject.get("degree");
                 String degreeToString = currentdegree.getAsString();
-                t = new Teacher(degreeToString);
-                a.addRole(t);
-                em.persist(t);
+                rs = new Teacher(degreeToString);
+                a.addRole(rs);
+                em.persist(rs);
+                break;
+            case "Student":
+                JsonElement currentsemester = jobject.get("semester");
+                String semesterToString = currentsemester.getAsString();
+                rs = new Student(semesterToString);
+                a.addRole(rs);
+                em.persist(rs);
+                break;
+            case "TeacherAssistant":
+                rs = new TeacherAssistant();
+                a.addRole(rs);
+                em.persist(rs);
                 break;
             default:
                 return null;
         }
-
         tr.commit();
-        return t;
+        return rs;
 
     }
 
@@ -144,7 +113,9 @@ public class Facadelogic implements FacadeInterface {
     public Person deletePersonFromJSON(Integer id) throws NotFoundException {
         tr.begin();
         Person a = em.find(Person.class, id);
-        if (a != null) {
+        if (a == null) {
+            throw new NotFoundException("No person exists for this given ID");
+        } else {
             em.remove(a);
         }
         tr.commit();
@@ -155,11 +126,35 @@ public class Facadelogic implements FacadeInterface {
         tr = em.getTransaction();
     }
 
- 
+    public void testingCode() {
+        String addingperson = "{ \"firstName\":\"John\", \"lastName\":\"McLaren\", \"mail\":\"j@m.uk\", \"phone\":\"3456\" }";
+        String addingperson2 = "{ \"firstName\":\"aaaaaa\", \"lastName\":\"aaaaa\", \"mail\":\"aaaaaa@m.uk\", \"phone\":\"33242346\" }";
+        String addingperson3 = "{ \"firstName\":\"bbbbb\", \"lastName\":\"bbbb\", \"mail\":\"bbbbbb@m.uk\", \"phone\":\"3234324236\" }";
+        Person p = addPersonFromJSON(addingperson);
+        Person p2 = addPersonFromJSON(addingperson2);
+        Person p3 = addPersonFromJSON(addingperson3);
+        System.out.println("Object: " + p.toString());
+        System.out.println("Object: " + p2.toString());
+        System.out.println("Object: " + p3.toString());
+        System.out.println("loraloralorao>O " + getPersonsAsJSON());
+        String t1 = "{\"degree\":\"d-1\", \"roleName\":\"Teacher\" }";
+        String s1 = "{\"semester\":\"2nd Semester\", \"roleName\":\"Student\" }";
+        String ta1 = "{ \"roleName\":\"TeacherAssistant\" } ";
+        addRoleFromJSON(t1, 100);
+        //addRoleFromJSON(s1, 102);
+        addRoleFromJSON(ta1, 101);
+        try {
+            System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
+            //deletePersonFromJSON(102);
+        } catch (NotFoundException ex) {
+            System.out.println("swag." + ex);
+        }
 
-    public static void main(String[] args) throws NotFoundException {
-
-        new Facadelogic().testingCode();
     }
+
+//    public static void main(String[] args) {
+//
+//        new Facadelogic().testingCode();
+//    }
 
 }
