@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
-
+//Entity class representing the RoleSchool table. Created by everyone.
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class RoleSchool implements Serializable {

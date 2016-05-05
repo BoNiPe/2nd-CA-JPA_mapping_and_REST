@@ -1,4 +1,3 @@
-//Nick's and Peter's logic
 package restCRUD;
 
 import com.sun.net.httpserver.Headers;
@@ -10,10 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- *
- * @author Desting
- */
 public class HandlerFileServer implements HttpHandler {
 
     private String publicFolder = RestFileServer.publicFolder;
@@ -32,6 +27,7 @@ public class HandlerFileServer implements HttpHandler {
             {
                 String extension = f.substring(f.lastIndexOf("."));
                 mime = getMime(extension);
+                System.out.println("My mime : " + mime);
                 File file = new File(publicFolder + f);
                 System.out.println(publicFolder + f);
                 bytesToSend = new byte[(int) file.length()];

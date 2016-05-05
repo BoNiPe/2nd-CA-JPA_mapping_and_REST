@@ -1,16 +1,14 @@
 package restCRUD;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import entity.RoleSchool;
-import entity.Teacher;
 import exceptions.NotFoundException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
+//Role Handler which can only deal with POST requests 
 public class HandlerRole implements HttpHandler {
 
     @Override
@@ -33,10 +31,7 @@ public class HandlerRole implements HttpHandler {
                         BufferedReader br = new BufferedReader(isr);
                         String jsonQuery = br.readLine();
                         System.out.println("jsonQuery:" + jsonQuery);
-                        //Teacher t = new Teacher();
-                        //response = new Gson().toJson(t);;
                         RoleSchool r= RestFileServer.facade.addRoleFromJSON(jsonQuery, id);
-                        //Person p = facade.addPersonFromJSON(jsonQuery);
                     } else {
                         response = RestFileServer.facade.getPersonsAsJSON();
                     }

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
+//Entity class representing the Person table. Created by everyone.
 @Entity
 public class Person implements Serializable {
 
@@ -35,8 +35,11 @@ public class Person implements Serializable {
         this.phone = phone;
         this.mail = email;
     }
-    
-    @OneToMany (cascade = CascadeType.ALL)//(mappedBy="person")
+//uni-directional connection between table Person and RoleSchool with Cascade
+//CascadeType removes the Joined table which @OneToMany creates and also deletes 
+//all roles which have PK-FK connecitons with the particular person, who has to
+//be removed from DB.
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn
     List<RoleSchool> listOfSchoolRoles = new ArrayList();
     
@@ -90,7 +93,7 @@ public class Person implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
+//Helpful for testing
     @Override
     public String toString() {
         return "ID"+ id+"Name: " + getFirstName() + " " + getLastName() + " with email: "
