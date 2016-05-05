@@ -1,30 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import com.google.gson.Gson;
 import entity.Person;
 import entity.RoleSchool;
-import entity.Student;
 import entity.Teacher;
 import exceptions.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author Desting
- */
 public class TestFacade {
 
     FacadeMock facade = FacadeMock.getInstance();

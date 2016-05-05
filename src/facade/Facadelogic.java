@@ -145,6 +145,7 @@ public class Facadelogic implements FacadeInterface {
 //        new Facadelogic().testingCode();
 //    }
     public void testingCode() {
+        System.out.println("Testing");
         Person person1 = new Person("Boyko", "Surlev", "boyko.surlev@gmail.com", "52639266");
         Person person2 = new Person("Nikolaj", "Desting", "nikolaj.desting@gmail.com", "30579301");
         Person person3 = new Person("Peter", "Tomascik", "peter@gmail.com", "69696969");

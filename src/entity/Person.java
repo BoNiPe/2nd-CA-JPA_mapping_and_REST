@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 //Entity class representing the Person table. Created by everyone.
+
 @Entity
 public class Person implements Serializable {
 
@@ -39,21 +40,25 @@ public class Person implements Serializable {
 //CascadeType removes the Joined table which @OneToMany creates and also deletes 
 //all roles which have PK-FK connecitons with the particular person, who has to
 //be removed from DB.
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     List<RoleSchool> listOfSchoolRoles = new ArrayList();
-    
-    public void addRole(RoleSchool sr){
+
+    public void addRole(RoleSchool sr) {
         listOfSchoolRoles.add(sr);
-        System.out.println(sr.getId() + " "+ sr.getRoleName());
+        System.out.println(sr.getId() + " " + sr.getRoleName());
     }
-    
-    public List checkRoles(){
+
+    public List checkRoles() {
         return listOfSchoolRoles;
     }
-    
+
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -72,12 +77,6 @@ public class Person implements Serializable {
         return phone;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    
-
     public void setEmail(String email) {
         this.mail = email;
     }
@@ -94,9 +93,10 @@ public class Person implements Serializable {
         this.phone = phone;
     }
 //Helpful for testing
+
     @Override
     public String toString() {
-        return "ID"+ id+"Name: " + getFirstName() + " " + getLastName() + " with email: "
+        return "Name: " + getFirstName() + " " + getLastName() + " with email: "
                 + getEmail() + " and phone number: " + getPhone();
     }
 

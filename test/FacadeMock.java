@@ -10,21 +10,9 @@ import entity.Teacher;
 import entity.TeacherAssistant;
 import exceptions.NotFoundException;
 import facade.FacadeInterface;
-import facade.Facadelogic;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Query;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Desting
- */
 public class FacadeMock implements FacadeInterface{
     
     private Gson gson = new Gson();
