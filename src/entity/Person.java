@@ -18,9 +18,9 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personIDSeq")
-    @SequenceGenerator(name = "personIDSeq", sequenceName = "PERSON_SEQ",
-            initialValue = 100, allocationSize = 1)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "personIDSeq" )
+    @SequenceGenerator( name = "personIDSeq", sequenceName = "PERSON_SEQ",
+            initialValue = 100, allocationSize = 1 )
     private Integer id;
     private String firstName;
     private String lastName;
@@ -30,7 +30,7 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String phone, String email) {
+    public Person( String firstName, String lastName, String phone, String email ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -40,13 +40,13 @@ public class Person implements Serializable {
 //CascadeType removes the Joined table which @OneToMany creates and also deletes 
 //all roles which have PK-FK connecitons with the particular person, who has to
 //be removed from DB.
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL )
     @JoinColumn
     List<RoleSchool> listOfSchoolRoles = new ArrayList();
 
-    public void addRole(RoleSchool sr) {
-        listOfSchoolRoles.add(sr);
-        System.out.println(sr.getId() + " " + sr.getRoleName());
+    public void addRole( RoleSchool sr ) {
+        listOfSchoolRoles.add( sr );
+        System.out.println( sr.getId() + " " + sr.getRoleName() );
     }
 
     public List checkRoles() {
@@ -57,7 +57,7 @@ public class Person implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId( Integer id ) {
         this.id = id;
     }
 
@@ -77,19 +77,19 @@ public class Person implements Serializable {
         return phone;
     }
 
-    public void setEmail(String email) {
+    public void setEmail( String email ) {
         this.mail = email;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName( String firstName ) {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName( String lastName ) {
         this.lastName = lastName;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone( String phone ) {
         this.phone = phone;
     }
 //Helpful for testing

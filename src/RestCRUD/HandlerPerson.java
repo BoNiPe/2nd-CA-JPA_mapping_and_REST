@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package RestCRUD;
 
 import com.google.gson.Gson;
@@ -17,96 +11,79 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-/**
- *
- * @author Desting
- */
 public class HandlerPerson implements HttpHandler {
 
-        Facadelogic facade = Facadelogic.getInstance();
+    Facadelogic facade = Facadelogic.getInstance();
 
     public HandlerPerson() throws NotFoundException {
         facade = Facadelogic.getInstance();
-        if (RestFileServer.DEVELOPMENT_MODE) {
-        facade.testingCode();
-      }
-    }
-        
-        
-        
-        
-
-        @Override
-        public void handle(HttpExchange he) throws IOException {
-            String response = "";
-            int status = 200;
-            String method = he.getRequestMethod().toUpperCase();
-            switch (method)
-            {
-                case "GET":
-                    try
-                    {
-                        String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-                        if (lastIndex > 0)
-                        {
-                            String idString = path.substring(lastIndex + 1);
-
-                            int id = Integer.parseInt(idString);
-                            response = facade.getPersonAsJSON(id);
-                        } else
-                        {
-                            response = facade.getPersonsAsJSON();
-                        }
-                    } catch (NumberFormatException nfe)
-                    {
-                        response = "Id is not a number";
-                        status = 404;
-                    } catch (NotFoundException nfe) //***** WTF??
-                    {
-                        response = nfe.getMessage();
-                        status = 404;
-                    }
-                    break;
-                case "POST":
-                    InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-                    BufferedReader br = new BufferedReader(isr);
-                    String jsonQuery = br.readLine();
-                    Person p = facade.addPersonFromJSON(jsonQuery);
-                    response = new Gson().toJson(p);
-                    
-                    
-                    break;
-                case "PUT":
-                    break;
-                case "DELETE":
-                    try{
-          String path = he.getRequestURI().getPath();
-          int lastIndex = path.lastIndexOf("/");
-          if (lastIndex > 0) {  //person/id
-            int id = Integer.parseInt(path.substring(lastIndex+1));
-            Person pDeleted = facade.deletePersonFromJSON(id);
-            response = new Gson().toJson(pDeleted);
-          }
-          else{
-            status = 400;
-            response = "<h1>Bad Request</h1>No id supplied with request";
-          }
-          }catch(NotFoundException nfe){
-            status = 404;
-            response = nfe.getMessage();
-          }
-          catch (NumberFormatException nfe) {
-            response = "Id is not a number";
-            status = 404;
-          } 
-          break;
-            }
-            he.getResponseHeaders().add("Content-Type", "application/json");
-            he.sendResponseHeaders(status, 0);
-            try (OutputStream os = he.getResponseBody())
-            {
-                os.write(response.getBytes());
-            }
+        if ( RestFileServer.DEVELOPMENT_MODE ) {
+            facade.testingCode();
         }
     }
+
+    @Override
+    public void handle( HttpExchange he ) throws IOException {
+        String response = "";
+        int status = 200;
+        String method = he.getRequestMethod().toUpperCase();
+        switch ( method ) {
+            case "GET":
+                try {
+                    String path = he.getRequestURI().getPath();
+                    int lastIndex = path.lastIndexOf( "/" );
+                    if ( lastIndex > 0 ) {
+                        String idString = path.substring( lastIndex + 1 );
+
+                        int id = Integer.parseInt( idString );
+                        response = facade.getPersonAsJSON( id );
+                    } else {
+                        response = facade.getPersonsAsJSON();
+                    }
+                } catch ( NumberFormatException nfe ) {
+                    response = "Id is not a number";
+                    status = 404;
+                } catch ( NotFoundException nfe ) //***** WTF??
+                {
+                    response = nfe.getMessage();
+                    status = 404;
+                }
+                break;
+            case "POST":
+                InputStreamReader isr = new InputStreamReader( he.getRequestBody(), "utf-8" );
+                BufferedReader br = new BufferedReader( isr );
+                String jsonQuery = br.readLine();
+                Person p = facade.addPersonFromJSON( jsonQuery );
+                response = new Gson().toJson( p );
+
+                break;
+            case "PUT":
+                break;
+            case "DELETE":
+                try {
+                    String path = he.getRequestURI().getPath();
+                    int lastIndex = path.lastIndexOf( "/" );
+                    if ( lastIndex > 0 ) {  //person/id
+                        int id = Integer.parseInt( path.substring( lastIndex + 1 ) );
+                        Person pDeleted = facade.deletePersonFromJSON( id );
+                        response = new Gson().toJson( pDeleted );
+                    } else {
+                        status = 400;
+                        response = "<h1>Bad Request</h1>No id supplied with request";
+                    }
+                } catch ( NotFoundException nfe ) {
+                    status = 404;
+                    response = nfe.getMessage();
+                } catch ( NumberFormatException nfe ) {
+                    response = "Id is not a number";
+                    status = 404;
+                }
+                break;
+        }
+        he.getResponseHeaders().add( "Content-Type", "application/json" );
+        he.sendResponseHeaders( status, 0 );
+        try ( OutputStream os = he.getResponseBody() ) {
+            os.write( response.getBytes() );
+        }
+    }
+}

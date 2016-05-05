@@ -13,15 +13,15 @@ import facade.FacadeInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FacadeMock implements FacadeInterface{
-    
+public class FacadeMock implements FacadeInterface {
+
     private Gson gson = new Gson();
     public static List<Person> persons = new ArrayList();
-    
+
     private static FacadeMock instance = null;
-    
+
     public static FacadeMock getInstance() {
-        if (instance == null) {
+        if ( instance == null ) {
             instance = new FacadeMock();
         }
         return instance;
@@ -29,64 +29,64 @@ public class FacadeMock implements FacadeInterface{
 
     @Override
     public String getPersonsAsJSON() {
-        return gson.toJson(persons);
+        return gson.toJson( persons );
     }
 
     @Override
-    public String getPersonAsJSON(Integer id) throws NotFoundException {
+    public String getPersonAsJSON( Integer id ) throws NotFoundException {
         Person a = new Person();
-        
-        for(int i = 0; i<persons.size(); i++){
-            if(persons.get(i).getId() == id){
-               a = persons.get(i);  
+
+        for ( int i = 0; i < persons.size(); i++ ) {
+            if ( persons.get( i ).getId() == id ) {
+                a = persons.get( i );
             }
         }
-        if (a == null) {
-            throw new NotFoundException("No person exists for this given ID");
+        if ( a == null ) {
+            throw new NotFoundException( "No person exists for this given ID" );
         }
-        
-        return ((a == null) ? null : gson.toJson(a));
-        
+
+        return ((a == null) ? null : gson.toJson( a ));
+
     }
 
     @Override
-    public Person addPersonFromJSON(String json) {
-        Person p = gson.fromJson(json, Person.class);
+    public Person addPersonFromJSON( String json ) {
+        Person p = gson.fromJson( json, Person.class );
         return p;
     }
 
     @Override
-    public RoleSchool addRoleFromJSON(String json, Integer id) {
+    public RoleSchool addRoleFromJSON( String json, Integer id ) {
         Person a = new Person();
-        
-        for(int i = 0; i<persons.size(); i++){
-            if(persons.get(i).getId() == id){
-               a = persons.get(i);  
-               //Might have to remove and insert
+
+        for ( int i = 0; i < persons.size(); i++ ) {
+            if ( persons.get( i ).getId() == id ) {
+                a = persons.get( i );
+                //Might have to remove and insert
             }
         }
-        JsonElement jelement = new JsonParser().parse(json);
+        JsonElement jelement = new JsonParser().parse( json );
         JsonObject jobject = jelement.getAsJsonObject();
-        JsonElement currentrole = jobject.get("roleName");
+        JsonElement currentrole = jobject.get( "roleName" );
         String roleToString = currentrole.getAsString();
-        
+
         RoleSchool rs;
-        switch (roleToString) {
+        switch ( roleToString ) {
             case "Teacher":
-                JsonElement currentdegree = jobject.get("degree");
+                JsonElement currentdegree = jobject.get( "degree" );
                 String degreeToString = currentdegree.getAsString();
-                rs = new Teacher(degreeToString);
-                a.addRole(rs);
+                rs = new Teacher( degreeToString );
+                a.addRole( rs );
                 break;
             case "Student":
-                JsonElement currentsemester = jobject.get("semester");
+                JsonElement currentsemester = jobject.get( "semester" );
                 String semesterToString = currentsemester.getAsString();
-                rs = new Student(semesterToString);
-                a.addRole(rs);
+                rs = new Student( semesterToString );
+                a.addRole( rs );
                 break;
             case "TeacherAssistant":
                 rs = new TeacherAssistant();
-                a.addRole(rs);
+                a.addRole( rs );
                 break;
             default:
                 return null;
@@ -95,18 +95,18 @@ public class FacadeMock implements FacadeInterface{
     }
 
     @Override
-    public Person deletePersonFromJSON(Integer id) throws NotFoundException {
+    public Person deletePersonFromJSON( Integer id ) throws NotFoundException {
         Person a = new Person();
-        
-        for(int i = 0; i<persons.size(); i++){
-            if(persons.get(i).getId() == id){
-               a = persons.remove(i);  
+
+        for ( int i = 0; i < persons.size(); i++ ) {
+            if ( persons.get( i ).getId() == id ) {
+                a = persons.remove( i );
             }
         }
-        if (a == null) {
-            throw new NotFoundException("No person exists for this given ID");
+        if ( a == null ) {
+            throw new NotFoundException( "No person exists for this given ID" );
         }
         return a;
     }
-    
+
 }

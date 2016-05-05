@@ -12,40 +12,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
- * @author Tomascik
- */
 @Entity
-@DiscriminatorValue("assistenTeacher")
+@DiscriminatorValue( "assistenTeacher" )
 public class AssistenTeacher extends RoleSchool implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    
-    
-
 
 // Getters and Setters + Constructors
-
-    
-    
-    
-
     public AssistenTeacher() {
-        super.setRoleName("assistenTeacher");
+        super.setRoleName( "assistenTeacher" );
     }
-    
-    
 
-
-
-
-    public void setId(Long id) {
+    public void setId( Long id ) {
         this.id = id;
     }
 
-  
-    
 }

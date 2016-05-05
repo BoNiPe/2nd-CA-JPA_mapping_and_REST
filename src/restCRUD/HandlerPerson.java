@@ -13,66 +13,66 @@ import java.io.OutputStream;
 public class HandlerPerson implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange he) throws IOException {
+    public void handle( HttpExchange he ) throws IOException {
         String response = "";
         int status = 200;
         String method = he.getRequestMethod().toUpperCase();
-        switch (method) {
+        switch ( method ) {
             case "GET":
                 try {
                     String path = he.getRequestURI().getPath();
-                    int lastIndex = path.lastIndexOf("/");
-                    if (lastIndex > 0) {
-                        String idString = path.substring(lastIndex + 1);
+                    int lastIndex = path.lastIndexOf( "/" );
+                    if ( lastIndex > 0 ) {
+                        String idString = path.substring( lastIndex + 1 );
 
-                        int id = Integer.parseInt(idString);
-                        response = RestFileServer.facade.getPersonAsJSON(id);
+                        int id = Integer.parseInt( idString );
+                        response = RestFileServer.facade.getPersonAsJSON( id );
                     } else {
                         response = RestFileServer.facade.getPersonsAsJSON();
                     }
-                } catch (NumberFormatException nfe) {
+                } catch ( NumberFormatException nfe ) {
                     response = "Id is not a number";
                     status = 404;
-                } catch (NotFoundException nfe) //***** WTF??
+                } catch ( NotFoundException nfe ) //***** WTF??
                 {
                     response = nfe.getMessage();
                     status = 404;
                 }
                 break;
             case "POST":
-                InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-                BufferedReader br = new BufferedReader(isr);
+                InputStreamReader isr = new InputStreamReader( he.getRequestBody(), "utf-8" );
+                BufferedReader br = new BufferedReader( isr );
                 String jsonQuery = br.readLine();
-                Person p = RestFileServer.facade.addPersonFromJSON(jsonQuery);
-                response = new Gson().toJson(p);
+                Person p = RestFileServer.facade.addPersonFromJSON( jsonQuery );
+                response = new Gson().toJson( p );
                 break;
             case "PUT":
                 break;
             case "DELETE":
                 try {
                     String path = he.getRequestURI().getPath();
-                    int lastIndex = path.lastIndexOf("/");
-                    if (lastIndex > 0) {  //person/id
-                        int id = Integer.parseInt(path.substring(lastIndex + 1));
-                        Person pDeleted = RestFileServer.facade.deletePersonFromJSON(id);
-                        response = new Gson().toJson(pDeleted);
+                    int lastIndex = path.lastIndexOf( "/" );
+                    if ( lastIndex > 0 ) {  //person/id
+                        int id = Integer.parseInt( path.substring( lastIndex + 1 ) );
+                        Person pDeleted = RestFileServer.facade.deletePersonFromJSON( id );
+                        response = new Gson().toJson( pDeleted );
                     } else {
                         status = 400;
                         response = "<h1>Bad Request</h1>No id supplied with request";
                     }
-                } catch (NotFoundException nfe) {
+                } catch ( NotFoundException nfe ) {
                     status = 404;
                     response = nfe.getMessage();
-                } catch (NumberFormatException nfe) {
+                } catch ( NumberFormatException nfe ) {
                     response = "Id is not a number";
                     status = 404;
                 }
                 break;
         }
-        he.getResponseHeaders().add("Content-Type", "application/json");
-        he.sendResponseHeaders(status, 0);
-        try (OutputStream os = he.getResponseBody()) {
-            os.write(response.getBytes());
+        he.getResponseHeaders().add( "Content-Type", "application/json" );
+        he.sendResponseHeaders( status, 0 );
+        try ( OutputStream os = he.getResponseBody() ) {
+            os.write( response.getBytes() );
         }
     }
 }

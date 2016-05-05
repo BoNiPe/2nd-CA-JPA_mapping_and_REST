@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 //Entity class representing the Student table, inherited by RoleSchool. Created
 //by everyone.
+
 @Entity
 public class Student extends RoleSchool implements Serializable {
 
@@ -12,16 +13,16 @@ public class Student extends RoleSchool implements Serializable {
     public Student() {
     }
 
-    public Student(String semester) {
+    public Student( String semester ) {
         this.semester = semester;
-        super.setRoleName("Student");
+        super.setRoleName( "Student" );
     }
 
     public String getSemester() {
         return semester;
     }
 
-    public void setSemester(String semester) {
+    public void setSemester( String semester ) {
         this.semester = semester;
     }
 

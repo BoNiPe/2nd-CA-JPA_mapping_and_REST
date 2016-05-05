@@ -10,17 +10,17 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance( strategy = InheritanceType.JOINED )
 public class SchoolRole implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "schrolIDSeq")
-    @SequenceGenerator(name = "schrolIDSeq", sequenceName = "SCHROL_SEQ",
-            initialValue = 200, allocationSize = 1)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "schrolIDSeq" )
+    @SequenceGenerator( name = "schrolIDSeq", sequenceName = "SCHROL_SEQ",
+            initialValue = 200, allocationSize = 1 )
     private Integer id;
     private String roleName;
 
-    public SchoolRole(String role) {
+    public SchoolRole( String role ) {
         this.roleName = role;
     }
 
@@ -31,7 +31,7 @@ public class SchoolRole implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId( Integer id ) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class SchoolRole implements Serializable {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName( String roleName ) {
         this.roleName = roleName;
     }
 
