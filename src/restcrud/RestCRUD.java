@@ -54,7 +54,7 @@ public class RestCRUD {
     Facadelogic facade;
 
     public HandlerPerson() throws NotFoundException {
-      facade = Facadelogic.getFacade();
+      facade = Facadelogic.getInstance();
                                             // getFacade(false);
       if (DEVELOPMENT_MODE) {
      //   facade = new Facadelogic();

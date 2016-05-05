@@ -23,10 +23,10 @@ import java.io.OutputStream;
  */
 public class HandlerPerson implements HttpHandler {
 
-        Facadelogic facade = new Facadelogic();
+        Facadelogic facade = Facadelogic.getInstance();
 
     public HandlerPerson() throws NotFoundException {
-        facade = Facadelogic.getFacade();
+        facade = Facadelogic.getInstance();
         if (RestFileServer.DEVELOPMENT_MODE) {
         facade.testingCode();
       }
