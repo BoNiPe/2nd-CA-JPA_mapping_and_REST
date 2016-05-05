@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package RestCRUD;
+//Nick's and Peter's logic
+package restCRUD;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -23,7 +18,7 @@ import java.io.OutputStream;
  */
 public class HandlerPerson implements HttpHandler {
 
-        Facadelogic facade = new Facadelogic();
+        Facadelogic facade;
 
     public HandlerPerson() throws NotFoundException {
         facade = Facadelogic.getFacade();
@@ -31,11 +26,6 @@ public class HandlerPerson implements HttpHandler {
         facade.testingCode();
       }
     }
-        
-        
-        
-        
-
         @Override
         public void handle(HttpExchange he) throws IOException {
             String response = "";

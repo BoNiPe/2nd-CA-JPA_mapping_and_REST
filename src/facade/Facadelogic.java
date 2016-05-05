@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -40,7 +42,7 @@ public class Facadelogic implements FacadeInterface {
   /*
     Pass in true to create a new instance. Usefull for testing.
   */
-  public static Facadelogic getFacade(boolean reseet){
+  public static Facadelogic getFacade(){
     if(true){
       instance = new Facadelogic();
     }
@@ -50,7 +52,7 @@ public class Facadelogic implements FacadeInterface {
 
 // FOR testing
   
-     public void testingCode() throws NotFoundException {
+     public void testingCode()  {
         String addingperson = "{ \"firstName\":\"John\", \"lastName\":\"McLaren\", \"mail\":\"j@m.uk\", \"phone\":\"3456\" }";
         String addingperson2 = "{ \"firstName\":\"aaaaaa\", \"lastName\":\"aaaaa\", \"mail\":\"aaaaaa@m.uk\", \"phone\":\"33242346\" }";
         String addingperson3 = "{ \"firstName\":\"bbbbb\", \"lastName\":\"bbbb\", \"mail\":\"bbbbbb@m.uk\", \"phone\":\"3234324236\" }";
@@ -61,18 +63,26 @@ public class Facadelogic implements FacadeInterface {
         System.out.println("Object: " + p2.toString());
         System.out.println("Object: " + p3.toString());
         System.out.println("loraloralorao>O " + getPersonsAsJSON());
-        System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
+        try {
+            System.out.println("GetParticularPerson :" + getPersonAsJSON(100));
+        } catch ( NotFoundException ex ) {
+            Logger.getLogger( Facadelogic.class.getName() ).log( Level.SEVERE, null, ex );
+        }
         String t1 = "{\"degree\":\"d-1\", \"roleName\":\"Teacher\" }";
         addRoleFromJSON(t1, 100);
-        deletePersonFromJSON(102);
-        
-        
-        //LAR CODE
+        try {
+            deletePersonFromJSON(102);
+            
+            
+            //LAR CODE
 //        addPerson(gson.toJson(new Person("Lars","Mortensen","1234")));
 //    addPerson(gson.toJson(new Person("John","Handsen","2345")));
 //    addPerson(gson.toJson(new Person("Peter","Olsen","3456")));
 //    addPerson(gson.toJson(new Person("John","McDonald","4567")));
 //    addPerson(gson.toJson(new Person("George","Peterson","5678")));
+        } catch ( NotFoundException ex ) {
+            Logger.getLogger( Facadelogic.class.getName() ).log( Level.SEVERE, null, ex );
+        }
 
     }
      
