@@ -50,7 +50,7 @@ public class TestPerson {
         per.setFirstName("a");
         per.setLastName("b");
         per.setPhone("1");
-        per.setEmail("c");
+        per.setMail("c");
         
         
         assertEquals("Name: a b with email: c and phone number: 1", per.toString());
